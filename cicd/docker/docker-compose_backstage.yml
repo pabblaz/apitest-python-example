@@ -1,0 +1,20 @@
+services:
+  backend-tests:
+    build:
+      context: ../../.
+      dockerfile: cicd/docker/Dockerfile
+      args:
+        - --no-cache
+        - --progress=plain
+
+    networks:
+      - stage_network
+
+    command: >
+        bash -c "behave"
+    volumes:
+      - ./../../reports:/tests/report
+
+networks:
+  stage_network:
+    name: api_tests_network
